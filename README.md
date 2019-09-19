@@ -1,2 +1,2 @@
 # ty-component
-Vue+ElementUi+VeeValidate
+Vue+ElementUI+VeeValidate
