@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :label="$attrs.label">
+    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
       <el-input :type="$attrs.type" v-model="innerValue"></el-input>
     </el-form-item>
   </ValidationProvider>
