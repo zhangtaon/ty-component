@@ -6,7 +6,7 @@
           <ty-menu-icon :name="item.name"></ty-menu-icon>
           <span>{{item.name}}</span>
         </template>
-        <MenuItem :menus="item.children"></MenuItem>
+        <ty-menu-item :menus="item.children"></ty-menu-item>
       </el-submenu>
       <el-menu-item v-if="!item.children" :key="index" :index="item.name">
         <ty-menu-icon :name="item.name"></ty-menu-icon>
