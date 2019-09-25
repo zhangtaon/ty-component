@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="$attrs.label+':'">
-      <el-select v-model="innerValue" v-bind="$attrs">
+      <el-select v-model="innerValue" v-bind="$attrs" @change="change">
         <slot />
       </el-select>
     </el-form-item>
@@ -21,6 +21,10 @@ export default {
     // must be included in props
     value: {
       type: null
+    },
+    change: {
+      type: Function,
+      default: function() {}
     }
   },
   data: () => ({
@@ -40,6 +44,7 @@ export default {
     if (this.value) {
       this.innerValue = this.value;
     }
+    console.log(this.change.toString());
   }
 };
 </script>

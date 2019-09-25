@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="$attrs.label+':'">
-      <el-checkbox-group v-model="innerValue">
+      <el-checkbox-group v-model="innerValue" @change="change">
         <slot />
       </el-checkbox-group>
     </el-form-item>
@@ -21,6 +21,10 @@ export default {
     // must be included in props
     value: {
       type: null
+    },
+    change: {
+      type: Function,
+      default: function() {}
     }
   },
   data: () => ({

@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
-      <el-input :type="$attrs.type" v-model="innerValue"></el-input>
+      <el-input :type="$attrs.type" v-model="innerValue" @change="change"></el-input>
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -19,6 +19,10 @@ export default {
     // must be included in props
     value: {
       type: null
+    },
+    change: {
+      type: Function,
+      default: function() {}
     }
   },
   data: () => ({

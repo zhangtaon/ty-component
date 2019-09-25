@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver ref="observer" v-slot="{ passes }">
     <el-form ref="form" label-width="120px">
-      <ty-input v-model="email" rules="required|email" label="Email"/>
+      <ty-input v-model="email" rules="required|email" label="Email" :change="change"/>
 
       <ty-input
         v-model="password"
@@ -18,13 +18,13 @@
         label="Password confirmation"
       />
 
-      <ty-select rules="required" label="Subject" v-model="subject">
+      <ty-select rules="required" label="Subject" v-model="subject" :change="change">
         <el-option label="None" value></el-option>
         <el-option label="Subject 1" value="s1"></el-option>
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
 
-      <ty-checkboxes rules="required|length:2" name="Drinks" v-model="choices">
+      <ty-checkboxes rules="required|length:2" name="Drinks" v-model="choices" :change="change">
         <el-checkbox label="Coffee"></el-checkbox>
         <el-checkbox label="Tea"></el-checkbox>
         <el-checkbox label="Soda"></el-checkbox>
@@ -44,9 +44,6 @@ import TyInput from "../lib/input/tyInput.vue"
 import TySelect from "../lib/input/tySelect.vue"
 
 import { ValidationObserver } from "vee-validate";
-// import InputWithValidation from "./inputs/InputWithValidation";
-// import SelectWithValidation from "./inputs/SelectWithValidation";
-// import CheckboxesWithValidation from "./inputs/CheckboxesWithValidation";
 
 export default {
   name: "RForm",
@@ -55,9 +52,6 @@ export default {
     TyInput,
     TySelect,
     TyCheckboxes
-    // InputWithValidation,
-    // SelectWithValidation,
-    // CheckboxesWithValidation
   },
   data: () => ({
     email: "",
@@ -69,6 +63,9 @@ export default {
   methods: {
     onSubmit() {
       console.log("Form submitted yay!");
+    },
+    change(val){
+      console.log("change ...",val);
     },
     resetForm() {
       this.email = "";
