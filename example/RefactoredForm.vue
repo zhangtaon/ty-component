@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver ref="observer" v-slot="{ passes }">
     <el-form ref="form" label-width="120px">
-      <ty-input v-model="email" rules="required|email" label="Email" :change="change"/>
+      <ty-input v-model="email" rules="required|email" label="Email" :change="change" :editable="editable"/>
 
       <ty-input
         v-model="password"
@@ -9,6 +9,7 @@
         rules="required"
         label="Password"
         vid="password"
+        :editable="editable"
       />
 
       <ty-input
@@ -16,15 +17,16 @@
         type="password"
         rules="required|confirmed:password"
         label="Password confirmation"
+        :editable="editable"
       />
 
-      <ty-select rules="required" label="Subject" v-model="subject" :change="change">
+      <ty-select rules="required" label="Subject" v-model="subject" :change="change" :editable="editable">
         <el-option label="None" value></el-option>
         <el-option label="Subject 1" value="s1"></el-option>
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
 
-      <ty-checkboxes rules="required|length:2" name="Drinks" v-model="choices" :change="change">
+      <ty-checkboxes rules="required|length:2" label="Drinks" v-model="choices" :change="change" :editable="editable">
         <el-checkbox label="Coffee"></el-checkbox>
         <el-checkbox label="Tea"></el-checkbox>
         <el-checkbox label="Soda"></el-checkbox>
@@ -33,6 +35,7 @@
       <el-form-item>
         <el-button type="primary" @click="passes(onSubmit)">Create</el-button>
         <el-button @click="resetForm">Reset</el-button>
+        <el-button type="primary" @click="toggleStatus()">编辑态切换</el-button>
       </el-form-item>
     </el-form>
   </ValidationObserver>
@@ -58,9 +61,13 @@ export default {
     password: "",
     confirmation: "",
     subject: "",
-    choices: []
+    choices: [],
+    editable:true
   }),
   methods: {
+    toggleStatus() {
+      this.editable = !this.editable;
+    },
     onSubmit() {
       console.log("Form submitted yay!");
     },
