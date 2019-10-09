@@ -26,6 +26,11 @@
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
 
+      <ty-select rules="required" label="SubjectObject" v-model="subjectObj" :change="change" :editable="editable" label-name="label">
+        <el-option label="None" value></el-option>
+        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item"></el-option>
+      </ty-select>
+
       <ty-checkboxes rules="required|length:2" label="Drinks" v-model="choices" :change="change" :editable="editable">
         <el-checkbox label="Coffee"></el-checkbox>
         <el-checkbox label="Tea"></el-checkbox>
@@ -62,6 +67,17 @@ export default {
     confirmation: "",
     subject: "",
     choices: [],
+    subjectObj:null,
+    subjects:[
+      {
+        label: "Subject 1",
+        value: "s1"
+      },
+      {
+        label: "Subject 2",
+        value: "s2"
+      }
+    ],
     editable:true
   }),
   methods: {

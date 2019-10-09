@@ -4,7 +4,7 @@
       <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change">
         <slot />
       </el-select>
-      <span v-if="!editable">{{innerValue}}</span>
+      <span v-if="!editable">{{innerValue[labelName]}}</span>
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -30,7 +30,8 @@ export default {
     change: {
       type: Function,
       default: function() {}
-    }
+    },
+    labelName: String
   },
   data: () => ({
     innerValue: ""
