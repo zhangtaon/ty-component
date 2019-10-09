@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     goto: function(routeName) {
-      this.$router.tyPush(`/${routeName}` || "/enterprise");
+      this.$router.push(routeName || "/enterprise");
     }
   }
 };
