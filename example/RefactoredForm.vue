@@ -1,7 +1,13 @@
 <template>
   <ValidationObserver ref="observer" v-slot="{ passes }">
     <el-form ref="form" label-width="120px">
-      <ty-input v-model="email" rules="required|email" label="Email" :change="change" :editable="editable"/>
+      <ty-input
+        v-model="email"
+        rules="required|email"
+        label="Email"
+        :change="change"
+        :editable="editable"
+      />
 
       <ty-input
         v-model="password"
@@ -20,18 +26,56 @@
         :editable="editable"
       />
 
-      <ty-select rules="required" label="Subject" v-model="subject" :change="change" :editable="editable">
+      <ty-select
+        rules="required"
+        label="Subject"
+        v-model="subject"
+        :change="change"
+        :editable="editable"
+      >
         <el-option label="None" value></el-option>
         <el-option label="Subject 1" value="s1"></el-option>
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
 
-      <ty-select rules="required" label="SubjectObject" v-model="subjectObj" :change="change" :editable="editable" label-name="label">
+      <ty-select
+        rules="required"
+        label="编辑态展现label"
+        v-model="subjectObj"
+        :change="change"
+        :editable="editable"
+        label-name="label"
+      >
         <el-option label="None" value></el-option>
         <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item"></el-option>
       </ty-select>
 
-      <ty-checkboxes rules="required|length:2" label="Drinks" v-model="choices" :change="change" :editable="editable">
+      <ty-select
+        rules="required"
+        label="分组展现"
+        v-model="subjectGroupObj"
+        :change="change"
+        :editable="editable"
+        placeholder="请选择啊啊啊"
+        label-name="label"
+      >
+        <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
+          <el-option
+            v-for="item in group.options"
+            :key="item.value"
+            :label="item.label"
+            :value="item"
+          ></el-option>
+        </el-option-group>
+      </ty-select>
+
+      <ty-checkboxes
+        rules="required|length:2"
+        label="Drinks"
+        v-model="choices"
+        :change="change"
+        :editable="editable"
+      >
         <el-checkbox label="Coffee"></el-checkbox>
         <el-checkbox label="Tea"></el-checkbox>
         <el-checkbox label="Soda"></el-checkbox>
@@ -47,9 +91,9 @@
 </template>
 
 <script>
-import TyCheckboxes from "../lib/input/tyCheckboxes.vue"
-import TyInput from "../lib/input/tyInput.vue"
-import TySelect from "../lib/input/tySelect.vue"
+import TyCheckboxes from "../lib/input/tyCheckboxes.vue";
+import TyInput from "../lib/input/tyInput.vue";
+import TySelect from "../lib/input/tySelect.vue";
 
 import { ValidationObserver } from "vee-validate";
 
@@ -67,8 +111,12 @@ export default {
     confirmation: "",
     subject: "",
     choices: [],
-    subjectObj:null,
-    subjects:[
+    subjectObj: {
+        label: "Subject 1",
+        value: "s1"
+      },
+    subjectGroupObj: null,
+    subjects: [
       {
         label: "Subject 1",
         value: "s1"
@@ -78,7 +126,43 @@ export default {
         value: "s2"
       }
     ],
-    editable:true
+    options3: [
+      {
+        label: "热门城市",
+        options: [
+          {
+            value: "Shanghai",
+            label: "上海"
+          },
+          {
+            value: "Beijing",
+            label: "北京"
+          }
+        ]
+      },
+      {
+        label: "城市名",
+        options: [
+          {
+            value: "Chengdu",
+            label: "成都"
+          },
+          {
+            value: "Shenzhen",
+            label: "深圳"
+          },
+          {
+            value: "Guangzhou",
+            label: "广州"
+          },
+          {
+            value: "Dalian",
+            label: "大连"
+          }
+        ]
+      }
+    ],
+    editable: true
   }),
   methods: {
     toggleStatus() {
@@ -87,8 +171,8 @@ export default {
     onSubmit() {
       console.log("Form submitted yay!");
     },
-    change(val){
-      console.log("change ...",val);
+    change(val) {
+      console.log("change ...", val);
     },
     resetForm() {
       this.email = "";

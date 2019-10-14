@@ -47,6 +47,7 @@ export default {
     }
   },
   created() {
+    console.log("select $attrs：",this.$attrs);
     if (this.value) {
       this.innerValue = this.value;
     }
