@@ -4,9 +4,9 @@
     class="el-menu-vertical-demo"
     @open="handleOpen"
     @close="handleClose"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    background-color="#F6F6F6"
+    text-color="#0E1926"
+    active-text-color="#1890FF"
   >
     <ty-menu-item :menus="menus"></ty-menu-item>
           <!-- <el-menu-item index="1">
