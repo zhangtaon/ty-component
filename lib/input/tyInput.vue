@@ -55,7 +55,7 @@ export default {
     }
   },
   created() {
-    console.log("$attrs:", typeof this.$attrs.hideLabel);
+    // console.log("$attrs:", typeof this.$attrs.hideLabel);
     if (this.value) {
       this.innerValue = this.value;
     }
