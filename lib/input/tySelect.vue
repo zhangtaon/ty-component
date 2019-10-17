@@ -1,9 +1,10 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="$attrs.label+':'">
-      <el-select v-model="innerValue" v-bind="$attrs" @change="change">
+      <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change">
         <slot />
       </el-select>
+      <span v-if="!editable">{{innerValue[labelName]}}</span>
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -22,10 +23,15 @@ export default {
     value: {
       type: null
     },
+    editable: {
+      type: Boolean,
+      default: true
+    },
     change: {
       type: Function,
       default: function() {}
-    }
+    },
+    labelName: String
   },
   data: () => ({
     innerValue: ""
@@ -41,6 +47,7 @@ export default {
     }
   },
   created() {
+    console.log("select $attrs：",this.$attrs);
     if (this.value) {
       this.innerValue = this.value;
     }

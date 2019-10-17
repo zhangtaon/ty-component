@@ -1,12 +1,15 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
-      <el-input :type="$attrs.type" v-model="innerValue" @change="change"></el-input>
+      <el-input v-if="editable" :type="$attrs.type" v-model="innerValue" @change="change"></el-input>
+      <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
   </ValidationProvider>
 </template>
 
 <script>
+import { type } from "os";
+
 export default {
   props: {
     vid: {
@@ -19,6 +22,10 @@ export default {
     // must be included in props
     value: {
       type: null
+    },
+    editable: {
+      type: Boolean,
+      default: true
     },
     change: {
       type: Function,
@@ -36,6 +43,9 @@ export default {
     // Handles external model changes.
     value(newVal) {
       this.innerValue = newVal;
+    },
+    edit(newVal) {
+      console.log("edit:",newVal);
     }
   },
   created() {

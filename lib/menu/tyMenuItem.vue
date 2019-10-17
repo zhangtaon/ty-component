@@ -11,13 +11,13 @@
       <el-menu-item v-if="!item.children" :key="index" :index="item.name">
         <ty-menu-icon :name="item.name"></ty-menu-icon>
         <span slot="title" @click="goto(item.router)">{{item.name}}</span>
-        </el-menu-item>
+      </el-menu-item>
     </template>
   </div>
 </template>
 
 <script>
-import TyMenuIcon from "./tyMenuIcon.vue"
+import TyMenuIcon from "./tyMenuIcon.vue";
 export default {
   name: "TyMenuItem",
   components: {
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     goto: function(routeName) {
-      this.$router.push(routeName || "enterprise");
+      this.$router.push(routeName || "/enterprise");
     }
   }
 };

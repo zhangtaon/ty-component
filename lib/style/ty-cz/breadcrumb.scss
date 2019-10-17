@@ -1,0 +1,33 @@
+.bread-crumb{
+    padding-bottom: 20px;
+    .select-detail {
+        margin-bottom:24px;
+        float:right;
+        .el-input {
+            width: 192px;
+        }
+    }
+    .bread-line{
+        width:6px;
+        height:20px;
+        background: rgb(24, 144, 255);
+        float: left;
+        margin-top: 7px;
+        margin-right: 4px;
+    }
+    .bread-font{
+        color:#777E8C;
+        font-size:20px;
+        height:34px;
+        line-height:34px;
+        display:inline-block;
+    }
+    .select-icon{
+        text-align: center;
+        vertical-align: bottom;
+        color:#5E6470;
+        font-size:30px;
+        cursor: pointer;
+        padding: 0 12px;
+    }
+}
