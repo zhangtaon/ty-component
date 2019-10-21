@@ -1,7 +1,9 @@
-import EForm from "./EForm.vue"
-import RefactoredForm from "./RefactoredForm.vue"
+import EForm from "./component/EForm.vue"
+import RefactoredForm from "./component/RefactoredForm.vue"
+import Breadcrumb from "./component/Breadcrumb.vue"
 
-export {
-    EForm,
-    RefactoredForm
-}
+export default [
+    { path: "/form", component: RefactoredForm },
+    { path: "/eform", component: EForm },
+    { path: "/breadcrumb", component: Breadcrumb }
+]
