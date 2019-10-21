@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :label="$attrs.label+':'">
+    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
       <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change">
         <slot />
       </el-select>
@@ -47,11 +47,11 @@ export default {
     }
   },
   created() {
-    console.log("select $attrs：",this.$attrs);
+    // console.log("select $attrs：",this.$attrs);
     if (this.value) {
       this.innerValue = this.value;
     }
-    console.log(this.change.toString());
+    // console.log(this.change.toString());
   }
 };
 </script>
