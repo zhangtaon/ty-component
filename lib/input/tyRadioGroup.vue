@@ -1,15 +1,11 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <!-- 隐藏label -->
-    <el-form-item v-if="typeof $attrs.hideLabel == 'string'" :error="errors[0]">
-      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
-      <span v-if="!editable">{{innerValue}}</span>
-    </el-form-item>
-    <!-- 显示label -->
-    <el-form-item v-if="typeof $attrs.hideLabel != 'string'" :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
-      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
-      <span v-if="!editable">{{innerValue}}</span>
-    </el-form-item>
+    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
+      <el-radio-group v-if="editable" v-model="innerValue" ref="radio" v-bind="$attrs" @change="change">
+        <slot />
+      </el-radio-group>
+      <span v-if="!editable">{{text}}</span>
+    </el-form-item> 
   </ValidationProvider>
 </template>
 
@@ -34,18 +30,21 @@ export default {
     change: {
       type: Function,
       default: function() {}
-    }
+    },
+    labelName: String
   },
   data: () => ({
-    innerValue: ""
+    innerValue: "",
+    text:""
   }),
   watch: {
     // Handles internal model changes.
     innerValue(newVal) {
-      this.$emit("input", newVal);
+      this.text = newVal[this.labelName];
     },
     // Handles external model changes.
     value(newVal) {
+      // console.log("watch value");
       this.innerValue = newVal;
     }
   },

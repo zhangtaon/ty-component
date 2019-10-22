@@ -38,10 +38,20 @@
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
 
+      <ty-radio-group
+        rules="required"
+        label="radio编辑态展现label"
+        v-model="radioVal"
+        :change="change"
+        :editable="editable"
+        label-name="label"
+      >
+        <ty-radio v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</ty-radio>
+      </ty-radio-group>
       <ty-select
         rules="required"
-        label="编辑态展现label"
-        v-model="subjectObj"
+        label="select编辑态展现label"
+        v-model="selectVal"
         :change="change"
         :editable="editable"
         label-name="label"
@@ -91,9 +101,12 @@
 </template>
 
 <script>
+import { createHash } from "crypto";
 import TyCheckboxes from "../../lib/input/tyCheckboxes.vue";
 import TyInput from "../../lib/input/tyInput.vue";
 import TySelect from "../../lib/input/tySelect.vue";
+import TyRadioGroup from "../../lib/input/tyRadioGroup.vue";
+import TyRadio from "../../lib/input/tyRadio.vue";
 
 import { ValidationObserver } from "vee-validate";
 
@@ -103,7 +116,9 @@ export default {
     ValidationObserver,
     TyInput,
     TySelect,
-    TyCheckboxes
+    TyCheckboxes,
+    TyRadioGroup,
+    TyRadio
   },
   data: () => ({
     email: "",
@@ -111,7 +126,11 @@ export default {
     confirmation: "",
     subject: "",
     choices: [],
-    subjectObj: {
+    radioVal: {
+        label: "Subject 2",
+        value: "s2"
+      },
+    selectVal: {
         label: "Subject 1",
         value: "s1"
       },
@@ -164,6 +183,9 @@ export default {
     ],
     editable: true
   }),
+    created(){
+// console.log("createHash:",this.radioVal);
+    },
   methods: {
     toggleStatus() {
       this.editable = !this.editable;

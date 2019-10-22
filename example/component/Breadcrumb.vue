@@ -14,11 +14,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import axios from "axios";
-import FileSaver from 'file-saver'
-import XLSX from 'xlsx'
-
 export default {
     name: "Breadcrumb",
     created () {
