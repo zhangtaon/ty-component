@@ -30,5 +30,6 @@ extend("length", {
 
 Vue.component('ValidationProvider', ValidationProvider);
 
-export * from "./lib"
+export * from "./lib" 
+export * from "./example"
 
