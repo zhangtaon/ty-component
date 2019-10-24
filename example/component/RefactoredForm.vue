@@ -207,7 +207,7 @@ export default {
       this.editable = !this.editable;
     },
     onSubmit() {
-      console.log("Form submitted yay!");
+      console.log("Form submitted yay!",this.form);
     },
     change(val) {
       console.log("change ...", val);

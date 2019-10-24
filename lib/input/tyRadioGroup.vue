@@ -41,6 +41,7 @@ export default {
     // Handles internal model changes.
     innerValue(newVal) {
       this.text = newVal[this.labelName];
+      this.$emit("input", newVal);
     },
     // Handles external model changes.
     value(newVal) {
