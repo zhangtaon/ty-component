@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
+    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
       <el-radio-group v-if="editable" v-model="innerValue" ref="radio" v-bind="$attrs" @change="change">
         <slot />
       </el-radio-group>

@@ -1,12 +1,12 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <!-- 隐藏label -->
-    <el-form-item v-if="typeof $attrs.hideLabel == 'string'" :error="errors[0]">
+    <el-form-item v-if="typeof $attrs.hideLabel == 'string'" :error="errors[0]" :label-width="$attrs['label-width']">
       <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
     <!-- 显示label -->
-    <el-form-item v-if="typeof $attrs.hideLabel != 'string'" :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'">
+    <el-form-item v-if="typeof $attrs.hideLabel != 'string'" :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
       <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
