@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :label="$attrs.label+':'">
+    <el-form-item :error="errors[0]" :label="$attrs.label+':'" :label-width="$attrs['label-width']">
       <el-checkbox-group v-if="editable" v-model="innerValue" @change="change">
         <slot />
       </el-checkbox-group>
