@@ -1,8 +1,8 @@
 <template>
   <ValidationObserver ref="observer" v-slot="{ passes }">
-    <el-form ref="form" label-width="120px">
+    <el-form ref="form" label-width="220px" class="demoForm">
       <ty-input
-        v-model="email"
+        v-model="form.email"
         rules="required|email"
         label="Email"
         :change="change"
@@ -10,7 +10,7 @@
       />
 
       <ty-input
-        v-model="password"
+        v-model="form.password"
         type="password"
         rules="required"
         label="Password"
@@ -19,7 +19,7 @@
       />
 
       <ty-input
-        v-model="confirmation"
+        v-model="form.confirmation"
         type="password"
         rules="required|confirmed:password"
         label="Password confirmation"
@@ -29,7 +29,7 @@
       <ty-select
         rules="required"
         label="Subject"
-        v-model="subject"
+        v-model="form.subject"
         :change="change"
         :editable="editable"
       >
@@ -41,7 +41,7 @@
       <ty-radio-group
         rules="required"
         label="radio编辑态展现label"
-        v-model="radioVal"
+        v-model="form.radioVal"
         :change="change"
         :editable="editable"
         label-name="label"
@@ -51,7 +51,7 @@
       <ty-select
         rules="required"
         label="select编辑态展现label"
-        v-model="selectVal"
+        v-model="form.selectVal"
         :change="change"
         :editable="editable"
         label-name="label"
@@ -63,7 +63,7 @@
       <ty-select
         rules="required"
         label="分组展现"
-        v-model="subjectGroupObj"
+        v-model="form.subjectGroupObj"
         :change="change"
         :editable="editable"
         placeholder="请选择啊啊啊"
@@ -82,7 +82,7 @@
       <ty-checkboxes
         rules="required|length:2"
         label="Drinks"
-        v-model="choices"
+        v-model="form.choices"
         :change="change"
         :editable="editable"
       >
@@ -90,6 +90,16 @@
         <el-checkbox label="Tea"></el-checkbox>
         <el-checkbox label="Soda"></el-checkbox>
       </ty-checkboxes>
+
+      <ty-date-picker
+        v-model="form.alarmDate"
+        type="date"
+        placeholder="选择日期a"
+        label="报警日期"
+        :editable="editable"
+        format="yyyy 年 MM 月 dd 日"
+        value-format="yyyy-MM-dd"
+      ></ty-date-picker>
 
       <el-form-item>
         <el-button type="primary" @click="passes(onSubmit)">Create</el-button>
@@ -107,6 +117,7 @@ import TyInput from "../../lib/input/tyInput.vue";
 import TySelect from "../../lib/input/tySelect.vue";
 import TyRadioGroup from "../../lib/input/tyRadioGroup.vue";
 import TyRadio from "../../lib/input/tyRadio.vue";
+import TyDatePicker from "../../lib/input/tyDatePicker.vue";
 
 import { ValidationObserver } from "vee-validate";
 
@@ -118,23 +129,27 @@ export default {
     TySelect,
     TyCheckboxes,
     TyRadioGroup,
-    TyRadio
+    TyRadio,
+    TyDatePicker
   },
   data: () => ({
-    email: "",
-    password: "",
-    confirmation: "",
-    subject: "",
-    choices: [],
-    radioVal: {
+    form: {
+      email: "",
+      password: "",
+      confirmation: "",
+      subject: "",
+      radioVal: {
         label: "Subject 2",
         value: "s2"
       },
-    selectVal: {
+      selectVal: {
         label: "Subject 1",
         value: "s1"
       },
-    subjectGroupObj: null,
+      subjectGroupObj: null,
+      choices: [],
+      alarmDate: ""
+    },
     subjects: [
       {
         label: "Subject 1",
@@ -183,25 +198,26 @@ export default {
     ],
     editable: true
   }),
-    created(){
-// console.log("createHash:",this.radioVal);
-    },
+  created() {
+    // console.log("createHash:",this.radioVal);
+  },
   methods: {
     toggleStatus() {
+      console.log("form:", this.form);
       this.editable = !this.editable;
     },
     onSubmit() {
-      console.log("Form submitted yay!");
+      console.log("Form submitted yay!",this.form);
     },
     change(val) {
       console.log("change ...", val);
     },
     resetForm() {
-      this.email = "";
-      this.password = "";
-      this.confirmation = "";
-      this.subject = "";
-      this.choices = [];
+      this.form.email = "";
+      this.form.password = "";
+      this.form.confirmation = "";
+      this.form.subject = "";
+      this.form.choices = [];
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
       });
@@ -209,3 +225,9 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.demoForm {
+  width: 50%;
+  margin: 30px auto;
+}
+</style>

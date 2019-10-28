@@ -4,7 +4,7 @@
  */
 import Vue from 'vue'
 import { ValidationProvider, extend } from 'vee-validate';
-import { required, confirmed, length, email } from "vee-validate/dist/rules";
+import { required, confirmed, length, email, max, regex , min_value} from "vee-validate/dist/rules";
 import zh_CN from 'vee-validate/dist/locale/zh_CN';
 
 
@@ -26,6 +26,21 @@ extend("confirmed", {
 extend("length", {
   ...length,
   message: zh_CN.messages.length
+});
+
+extend("max", {
+  ...max,
+  message: zh_CN.messages.max
+});
+
+extend("regex", {
+  ...regex,
+  message: zh_CN.messages.regex
+});
+
+extend("min_value", {
+  ...min_value,
+  message: zh_CN.messages.min_value
 });
 
 Vue.component('ValidationProvider', ValidationProvider);
