@@ -51,8 +51,10 @@
       <ty-select
         rules="required"
         label="select编辑态展现label"
+        clearable
         v-model="form.selectVal"
         :change="change"
+        :clear="clear"
         :editable="editable"
         label-name="label"
       >
@@ -101,6 +103,19 @@
         value-format="yyyy-MM-dd"
       ></ty-date-picker>
 
+      <ty-date-picker
+        v-model="form.alarmDate"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        placeholder="选择日期b"
+        label="报警区间"
+        :editable="editable"
+        format="yyyy 年 MM 月 dd 日"
+        value-format="yyyy-MM-dd"
+      ></ty-date-picker>
+
       <el-form-item>
         <el-button type="primary" @click="passes(onSubmit)">Create</el-button>
         <el-button @click="resetForm">Reset</el-button>
@@ -111,7 +126,6 @@
 </template>
 
 <script>
-import { createHash } from "crypto";
 import TyCheckboxes from "../../lib/input/tyCheckboxes.vue";
 import TyInput from "../../lib/input/tyInput.vue";
 import TySelect from "../../lib/input/tySelect.vue";
@@ -199,7 +213,6 @@ export default {
     editable: true
   }),
   created() {
-    // console.log("createHash:",this.radioVal);
   },
   methods: {
     toggleStatus() {
@@ -211,6 +224,9 @@ export default {
     },
     change(val) {
       console.log("change ...", val);
+    },
+    clear(val) {
+      console.log("clear ...");
     },
     resetForm() {
       this.form.email = "";

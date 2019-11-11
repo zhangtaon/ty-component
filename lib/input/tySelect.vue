@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
-      <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change">
+      <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change" @clear="clear">
         <slot />
       </el-select>
       <span v-if="!editable">{{innerValue[labelName]}}</span>
@@ -28,6 +28,10 @@ export default {
       default: true
     },
     change: {
+      type: Function,
+      default: function() {}
+    },
+    clear: {
       type: Function,
       default: function() {}
     },
