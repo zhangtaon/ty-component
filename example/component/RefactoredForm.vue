@@ -8,7 +8,6 @@
         :change="change"
         :editable="editable"
       />
-
       <ty-input
         v-model="form.password"
         type="password"
@@ -17,7 +16,6 @@
         vid="password"
         :editable="editable"
       />
-
       <ty-input
         v-model="form.confirmation"
         type="password"
@@ -25,7 +23,6 @@
         label="Password confirmation"
         :editable="editable"
       />
-
       <ty-select
         rules="required"
         label="Subject"
@@ -37,6 +34,15 @@
         <el-option label="Subject 1" value="s1"></el-option>
         <el-option label="Subject 2" value="s2"></el-option>
       </ty-select>
+      <ty-select
+        style="margin: 0 0 20px 220px;"
+        v-model="form.native"
+        :change="change"
+        placeholder="原生el-select结构下拉"
+        native
+      >
+        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
+      </ty-select>
 
       <ty-radio-group
         rules="required"
@@ -44,9 +50,11 @@
         v-model="form.radioVal"
         :change="change"
         :editable="editable"
-        label-name="label"
+        label-key="label"
+        value-key="value"
+        :data="subjects"
       >
-        <ty-radio v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</ty-radio>
+        <ty-radio v-for="(item,index) in subjects" :key="index" :label="item.value">{{item.label}}</ty-radio>
       </ty-radio-group>
       <ty-select
         rules="required"
@@ -56,27 +64,31 @@
         :change="change"
         :clear="clear"
         :editable="editable"
-        label-name="label"
+        label-key="label"
+        value-key="value"
+        :data="subjects"
       >
         <el-option label="None" value></el-option>
-        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item"></el-option>
+        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
       </ty-select>
 
       <ty-select
         rules="required"
         label="分组展现"
-        v-model="form.subjectGroupObj"
+        v-model="form.subjectGroupVal"
         :change="change"
         :editable="editable"
         placeholder="请选择啊啊啊"
-        label-name="label"
+        label-key="label"
+        value-key="value"
+        :data="options3"
       >
         <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
           <el-option
             v-for="item in group.options"
             :key="item.value"
             :label="item.label"
-            :value="item"
+            :value="item.value"
           ></el-option>
         </el-option-group>
       </ty-select>
@@ -104,7 +116,7 @@
       ></ty-date-picker>
 
       <ty-date-picker
-        v-model="form.alarmDate"
+        v-model="form.alarmDateRange"
         type="daterange"
         range-separator="至"
         start-placeholder="开始日期"
@@ -147,31 +159,31 @@ export default {
     TyDatePicker
   },
   data: () => ({
+    input1:'<ty-input v-model="form.email" rules="required|email" label="Email" :change="change" :editable="editable" />',
     form: {
       email: "",
       password: "",
       confirmation: "",
       subject: "",
-      radioVal: {
-        label: "Subject 2",
-        value: "s2"
-      },
-      selectVal: {
-        label: "Subject 1",
-        value: "s1"
-      },
-      subjectGroupObj: null,
+      radioVal: null,
+      native: null,
+      selectVal: null,
+      subjectGroupVal: "Shenzhen",
       choices: [],
       alarmDate: ""
     },
     subjects: [
       {
+        label: "Subject 0",
+        value: "0"
+      },
+      {
         label: "Subject 1",
-        value: "s1"
+        value: "1"
       },
       {
         label: "Subject 2",
-        value: "s2"
+        value: "2"
       }
     ],
     options3: [

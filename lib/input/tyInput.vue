@@ -6,7 +6,7 @@
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
     <!-- 显示label -->
-    <el-form-item v-if="typeof $attrs.hideLabel != 'string'" :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
+    <el-form-item v-else :error="errors[0]" :label="(rules.includes('required')?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
       <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
@@ -50,7 +50,7 @@ export default {
     }
   },
   created() {
-    // console.log("$attrs:", typeof this.$attrs.hideLabel);
+    // console.log("$attrs.label:",  this.$attrs.label,this.rules);
     if (this.value) {
       this.innerValue = this.value;
     }

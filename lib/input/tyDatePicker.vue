@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
-      <el-date-picker v-if="editable" v-bind="$attrs" v-model="innerValue" type="date" @change="change"></el-date-picker>
+      <el-date-picker v-if="editable" v-bind="$attrs" v-model="innerValue"  @change="change"></el-date-picker>
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
   </ValidationProvider>
