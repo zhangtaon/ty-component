@@ -11,7 +11,7 @@
       <ty-input
         v-model="form.password"
         type="password"
-        rules="required"
+        :rules="{ regex: /^[0-9]+$/ }"
         label="Password"
         vid="password"
         :editable="editable"

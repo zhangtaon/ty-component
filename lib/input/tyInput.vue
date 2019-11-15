@@ -6,7 +6,7 @@
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
     <!-- 显示label -->
-    <el-form-item v-else :error="errors[0]" :label="(rules.includes('required')?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
+    <el-form-item v-else :error="errors[0]" :label="(isRequired ? '*' : '' ) + $attrs.label + ':'" :label-width="$attrs['label-width']">
       <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
       <span v-if="!editable">{{innerValue}}</span>
     </el-form-item>
@@ -37,7 +37,8 @@ export default {
     }
   },
   data: () => ({
-    innerValue: ""
+    innerValue: "",
+    isRequired: false
   }),
   watch: {
     // Handles internal model changes.
@@ -50,6 +51,9 @@ export default {
     }
   },
   created() {
+    if(Object.prototype.toString.call(this.rules) == "[object String]"){
+        this.isRequired =  this.rules.includes('required');
+    }
     // console.log("$attrs.label:",  this.$attrs.label,this.rules);
     if (this.value) {
       this.innerValue = this.value;
