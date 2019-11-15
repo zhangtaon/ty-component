@@ -113,8 +113,14 @@ export default {
     if(this.$slots.default){
       this.tag = this.$slots.default[0].componentOptions.tag;
     }
-    if (this.value) {
-      this.innerValue = this.value;
+    switch(this.value){
+      case "":
+      case "undefined":
+      case undefined:
+      case null:
+        break;
+      default:
+        this.innerValue = this.value;
     }
   }
 };

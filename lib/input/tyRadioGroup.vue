@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
-      <el-radio-group v-if="editable" v-model="innerValue" ref="radio" v-bind="$attrs" @change="change">
+      <el-radio-group v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change">
         <slot />
       </el-radio-group>
       <span v-if="!editable">{{labelValue}}</span>
@@ -74,7 +74,7 @@ export default {
     }
   },
   data: () => ({
-    innerValue: "",
+    innerValue: null,
   }),
   watch: {
     // Handles internal model changes.
@@ -83,14 +83,18 @@ export default {
     },
     // Handles external model changes.
     value(newVal) {
-      // console.log("watch value");
       this.innerValue = newVal;
     }
   },
   created() {
-    // console.log("$attrs:", typeof this.$attrs.hideLabel);
-    if (this.value) {
-      this.innerValue = this.value;
+    switch(this.value){
+      case "":
+      case "undefined":
+      case undefined:
+      case null:
+        break;
+      default:
+        this.innerValue = this.value;
     }
   }
 };

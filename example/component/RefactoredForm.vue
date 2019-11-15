@@ -50,10 +50,11 @@
         v-model="form.radioVal"
         :change="change"
         :editable="editable"
-        :data="subjects"
+        :data="radioList"
       >
-        <ty-radio v-for="(item,index) in subjects" :key="index" :label="item.value">{{item.label}}</ty-radio>
+        <el-radio v-for="(item,index) in radioList" :key="index" :label="item.value">{{item.label}}</el-radio>
       </ty-radio-group>
+      
       <ty-select
         rules="required"
         label="select编辑态展现label"
@@ -153,13 +154,22 @@ export default {
     TyDatePicker
   },
   data: () => ({
-    input1:'<ty-input v-model="form.email" rules="required|email" label="Email" :change="change" :editable="editable" />',
+    radioList:[
+          {
+              label: "是",
+              value: true
+          },
+          {
+              label: "否",
+              value: false
+          }
+      ],
     form: {
       email: "",
       password: "",
       confirmation: "",
       subject: "",
-      radioVal: null,
+      radioVal: false,
       native: null,
       selectVal: null,
       subjectGroupVal: "Shenzhen",
