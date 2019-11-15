@@ -50,8 +50,6 @@
         v-model="form.radioVal"
         :change="change"
         :editable="editable"
-        label-key="label"
-        value-key="value"
         :data="subjects"
       >
         <ty-radio v-for="(item,index) in subjects" :key="index" :label="item.value">{{item.label}}</ty-radio>
@@ -64,8 +62,6 @@
         :change="change"
         :clear="clear"
         :editable="editable"
-        label-key="label"
-        value-key="value"
         :data="subjects"
       >
         <el-option label="None" value></el-option>
@@ -79,8 +75,6 @@
         :change="change"
         :editable="editable"
         placeholder="请选择啊啊啊"
-        label-key="label"
-        value-key="value"
         :data="options3"
       >
         <el-option-group v-for="group in options3" :key="group.label" :label="group.label">

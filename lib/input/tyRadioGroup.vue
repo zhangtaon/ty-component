@@ -31,8 +31,14 @@ export default {
       type: Function,
       default: function() {}
     },
-    labelKey: String,
-    valueKey: String,
+    labelKey: {
+      type: String,
+      default: "label"
+    },
+    valueKey:  {
+      type: String,
+      default: "value"
+    },
     data: {
       type: Array,
       default: ()=>[]
