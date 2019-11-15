@@ -82,6 +82,9 @@ export default {
   },
   methods:{
     getLabelValue(){
+      if(!this.tag && this.$slots.default){
+        this.tag = this.$slots.default[0].componentOptions.tag;
+      }
       try {
         if(this.labelKey && this.valueKey){
           if(this.tag == "el-option"){
@@ -107,7 +110,9 @@ export default {
   },
   created() {
     // 子项标签
-    this.tag = this.$slots.default[0].componentOptions.tag;
+    if(this.$slots.default){
+      this.tag = this.$slots.default[0].componentOptions.tag;
+    }
     if (this.value) {
       this.innerValue = this.value;
     }
