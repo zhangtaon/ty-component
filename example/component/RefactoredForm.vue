@@ -123,6 +123,18 @@
         value-format="yyyy-MM-dd"
       ></ty-date-picker>
 
+      <ty-upload 
+        v-model="form.file"
+        label="上传文件："
+        action="http://39.106.229.106:8011/file/upload"
+        :limit="1"
+        :file-list="fileList"
+        :disabled="!editable"
+        name="files">
+          <el-button size="small" type="text">点击上传</el-button>
+          <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
+      </ty-upload>
+      
       <el-form-item>
         <el-button type="primary" @click="passes(onSubmit)">Create</el-button>
         <el-button @click="resetForm">Reset</el-button>
@@ -139,6 +151,7 @@ import TySelect from "../../lib/input/tySelect.vue";
 import TyRadioGroup from "../../lib/input/tyRadioGroup.vue";
 import TyRadio from "../../lib/input/tyRadio.vue";
 import TyDatePicker from "../../lib/input/tyDatePicker.vue";
+import TyUpload from "../../lib/input/tyUpload.vue";
 
 import { ValidationObserver } from "vee-validate";
 
@@ -151,9 +164,11 @@ export default {
     TyCheckboxes,
     TyRadioGroup,
     TyRadio,
-    TyDatePicker
+    TyDatePicker,
+    TyUpload
   },
   data: () => ({
+    fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
     radioList:[
           {
               label: "是",
@@ -261,5 +276,8 @@ export default {
 .demoForm {
   width: 50%;
   margin: 30px auto;
+}
+.el-upload .el-upload__input {
+    display: none;
 }
 </style>

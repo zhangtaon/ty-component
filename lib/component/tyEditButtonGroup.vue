@@ -1,7 +1,7 @@
 <template>
   <div v-if="!innerEditable">
     <el-button type="primary" @click="$emit('change',innerEditable=!innerEditable)">编辑</el-button>
-    <el-button @click="back()">返回2</el-button>
+    <el-button @click="back()">返回</el-button>
   </div>
   <div v-else>
     <el-button v-if="$listeners.journal" type="primary" @click="$emit('journal')">日志</el-button>
