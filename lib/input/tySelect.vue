@@ -55,7 +55,7 @@ export default {
     requiredSymbol() {
       let res = false;
         if (typeof this.rules === "string") {
-          res = this.rules === "required"; // 可能含有未知规则格式
+          res = this.rules.includes("required");
         } else {
           res = this.rules.required;
         }
