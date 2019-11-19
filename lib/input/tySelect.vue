@@ -3,7 +3,7 @@
     <slot />
   </el-select>
   <ValidationProvider v-else :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
-    <el-form-item :error="errors[0]" :label="(rules=='required'?'*':'')+$attrs.label+':'" :label-width="$attrs['label-width']">
+    <el-form-item :error="errors[0]" :label="requiredSymbol+$attrs.label+':'" :label-width="$attrs['label-width']">
       <el-select v-if="editable" v-model="innerValue" v-bind="$attrs" @change="change" @clear="clear">
         <slot />
       </el-select>
@@ -52,6 +52,15 @@ export default {
     }
   },
   computed:{
+    requiredSymbol() {
+      let res = false;
+        if (typeof this.rules === "string") {
+          res = this.rules === "required"; // 可能含有未知规则格式
+        } else {
+          res = this.rules.required;
+        }
+      return res ? "*" : "";
+    },
     labelValue(val){
       if(!this.editable){
         switch (this.value) {
