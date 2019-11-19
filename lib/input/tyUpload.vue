@@ -9,10 +9,6 @@
 
 <script>
 export default {
-  props: {
-    // must be included in props
-   
-  },
   methods: {
     success(res) {
       // console.log("success:",res);
