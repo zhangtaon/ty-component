@@ -16,7 +16,7 @@
     <el-button v-if="$listeners.print" type="primary" @click="$emit('print')">打印</el-button>
     <el-button v-if="$listeners.saveDraft" type="primary" @click="$emit('saveDraft')">保存草稿</el-button>
     <el-button v-if="$listeners.save" type="primary" @click="$emit('save')">保存</el-button>
-    <el-button v-if="!isAdd" @click="$emit('change',innerEditable=!innerEditable)">取消</el-button>
+    <el-button v-if="!isAdd" @click="change()">取消</el-button>
     <el-button v-if="isAdd" @click="back()">返回</el-button>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
   methods: {
     back() {
       this.$router.go(-1);
+    },
+    change(){
+      this.$emit('change',this.innerEditable=!this.innerEditable)
     }
   }
 };
