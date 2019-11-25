@@ -1,9 +1,9 @@
 <template>
-  <div v-if="!innerEditable">
+  <span v-if="!innerEditable">
     <el-button type="primary" @click="$emit('change',innerEditable=!innerEditable)">编辑</el-button>
     <el-button @click="back()">返回</el-button>
-  </div>
-  <div v-else>
+  </span>
+  <span v-else>
     <el-button v-if="$listeners.journal" type="primary" @click="$emit('journal')">日志</el-button>
     <el-button v-if="$listeners.checkRecord" type="primary" @click="$emit('checkRecord')">排查记录</el-button>
     <el-button v-if="$listeners.check" type="primary" @click="$emit('check')">排查</el-button>
@@ -18,7 +18,7 @@
     <el-button v-if="$listeners.save" type="primary" @click="$emit('save')">保存</el-button>
     <el-button v-if="!isAdd" @click="change()">取消</el-button>
     <el-button v-if="isAdd" @click="back()">返回</el-button>
-  </div>
+  </span>
 </template>
 <script>
 // import { mapState } from "vuex";

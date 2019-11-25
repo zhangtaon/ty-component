@@ -10,10 +10,21 @@
 <script>
 export default {
   methods: {
-    success(res) {
-      // console.log("success:",res);
+    success(res, file, fileList) {
       if(res.code == 0){
-        this.$emit("input", res.data.length == 1 ? res.data[0].fileName : data);
+        if(fileList.length==1){
+          this.$emit("input", fileList[0].response.data[0].fileName);
+        }else{
+          let _fileList = fileList.map(function(item){
+            return {
+              fileName: item.name,
+              fileSize: item.size,
+              uploadTime: new Date().getTime(),
+              fileId: item.response.data[0].id
+            }
+          });
+          this.$emit("input", _fileList);
+        }
       }else{
         this.$notify.error({
           title: '错误',

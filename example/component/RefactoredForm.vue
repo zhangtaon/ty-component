@@ -28,7 +28,6 @@
         label="Subject"
         v-model="form.subject"
         :change="change"
-        :editable="editable"
       >
         <el-option label="None" value></el-option>
         <el-option label="Subject 1" value="s1"></el-option>
@@ -127,7 +126,7 @@
         v-model="form.file"
         label="上传文件："
         action="http://39.106.229.106:8011/file/upload"
-        :limit="1"
+        :limit="3"
         :file-list="fileList"
         :disabled="!editable"
         name="files">
@@ -136,9 +135,7 @@
       </ty-upload>
       
       <el-form-item>
-        <el-button type="primary" @click="passes(onSubmit)">Create</el-button>
-        <el-button @click="resetForm">Reset</el-button>
-        <el-button type="primary" @click="toggleStatus()">编辑态切换</el-button>
+        <ty-edit-button-group @save="passes(onSubmit)" editable="" @change="editChange"/>
       </el-form-item>
     </el-form>
   </ValidationObserver>
@@ -152,6 +149,8 @@ import TyRadioGroup from "../../lib/input/tyRadioGroup.vue";
 import TyRadio from "../../lib/input/tyRadio.vue";
 import TyDatePicker from "../../lib/input/tyDatePicker.vue";
 import TyUpload from "../../lib/input/tyUpload.vue";
+import TyEditButtonGroup from "../../lib/component/tyEditButtonGroup.vue";
+
 
 import { ValidationObserver } from "vee-validate";
 
@@ -165,7 +164,8 @@ export default {
     TyRadioGroup,
     TyRadio,
     TyDatePicker,
-    TyUpload
+    TyUpload,
+    TyEditButtonGroup
   },
   data: () => ({
     fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
@@ -180,16 +180,16 @@ export default {
           }
       ],
     form: {
-      email: "",
-      password: "",
-      confirmation: "",
-      subject: "",
+      email: "ztok999@163.com",
+      password: "111",
+      confirmation: "111",
+      subject: "1",
       radioVal: false,
       native: null,
-      selectVal: null,
+      selectVal: "2",
       subjectGroupVal: "Shenzhen",
       choices: [],
-      alarmDate: ""
+      alarmDate: "2019-10-24"
     },
     subjects: [
       {
@@ -241,20 +241,20 @@ export default {
         ]
       }
     ],
-    editable: true
+    editable: false
   }),
   created() {
   },
   methods: {
-    toggleStatus() {
-      console.log("form:", this.form);
-      this.editable = !this.editable;
-    },
     onSubmit() {
       console.log("Form submitted yay!",this.form);
+      this.resetForm();
     },
     change(val) {
-      console.log("change ...", val);
+      console.log(val);
+    },
+    editChange(val) {
+      this.editable = val;
     },
     clear(val) {
       console.log("clear ...");
