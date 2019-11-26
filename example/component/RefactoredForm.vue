@@ -93,10 +93,9 @@
         v-model="form.choices"
         :change="change"
         :editable="editable"
+        :max="2"
       >
-        <el-checkbox label="Coffee"></el-checkbox>
-        <el-checkbox label="Tea"></el-checkbox>
-        <el-checkbox label="Soda"></el-checkbox>
+        <el-checkbox v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</el-checkbox>
       </ty-checkboxes>
 
       <ty-date-picker
@@ -191,6 +190,7 @@ export default {
       choices: [],
       alarmDate: "2019-10-24"
     },
+    choicesList:['aa','bbb','ccc'],
     subjects: [
       {
         label: "Subject 0",
@@ -248,7 +248,7 @@ export default {
   methods: {
     onSubmit() {
       console.log("Form submitted yay!",this.form);
-      this.resetForm();
+      // this.resetForm();
     },
     change(val) {
       console.log(val);
