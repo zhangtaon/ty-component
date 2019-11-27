@@ -1,143 +1,145 @@
 <template>
-  <ValidationObserver ref="observer" v-slot="{ passes }">
-    <el-form ref="form" label-width="220px" class="demoForm">
-      <ty-input
-        v-model="form.email"
-        rules="required|email"
-        label="Email"
-        :change="change"
-        :editable="editable"
-      />
-      <ty-input
-        v-model="form.password"
-        type="password"
-        :rules="{ regex: /^[0-9]+$/ }"
-        label="Password"
-        vid="password"
-        :editable="editable"
-      />
-      <ty-input
-        v-model="form.confirmation"
-        type="password"
-        rules="required|confirmed:password"
-        label="Password confirmation"
-        :editable="editable"
-      />
-      <ty-select
-        rules="required"
-        label="Subject"
-        v-model="form.subject"
-        :change="change"
-      >
-        <el-option label="None" value></el-option>
-        <el-option label="Subject 1" value="s1"></el-option>
-        <el-option label="Subject 2" value="s2"></el-option>
-      </ty-select>
-      <ty-select
-        style="margin: 0 0 20px 220px;"
-        v-model="form.native"
-        :change="change"
-        placeholder="原生el-select结构下拉"
-        native
-      >
-        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
-      </ty-select>
+  <div>
+    <ValidationObserver ref="observer">
+      <el-form ref="form" label-width="220px" class="demoForm">
+        <ty-input
+          v-model="form.email"
+          rules="required|email"
+          label="Email"
+          :change="change"
+          :editable="editable"
+        />
+        <ty-input
+          v-model="form.password"
+          type="password"
+          :rules="{ regex: /^[0-9]+$/ }"
+          label="Password"
+          vid="password"
+          :editable="editable"
+        />
+        <ty-input
+          v-model="form.confirmation"
+          type="password"
+          rules="required|confirmed:password"
+          label="Password confirmation"
+          :editable="editable"
+        />
+        <ty-select
+          rules="required"
+          label="Subject"
+          v-model="form.subject"
+          :change="change"
+        >
+          <el-option label="None" value></el-option>
+          <el-option label="Subject 1" value="s1"></el-option>
+          <el-option label="Subject 2" value="s2"></el-option>
+        </ty-select>
+        <ty-select
+          style="margin: 0 0 20px 220px;"
+          v-model="form.native"
+          :change="change"
+          placeholder="原生el-select结构下拉"
+          native
+        >
+          <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
+        </ty-select>
 
-      <ty-radio-group
-        rules="required"
-        label="radio编辑态展现label"
-        v-model="form.radioVal"
-        :change="change"
-        :editable="editable"
-        :data="radioList"
-      >
-        <el-radio v-for="(item,index) in radioList" :key="index" :label="item.value">{{item.label}}</el-radio>
-      </ty-radio-group>
+        <ty-radio-group
+          rules="required"
+          label="radio编辑态展现label"
+          v-model="form.radioVal"
+          :change="change"
+          :editable="editable"
+          :data="radioList"
+        >
+          <el-radio v-for="(item,index) in radioList" :key="index" :label="item.value">{{item.label}}</el-radio>
+        </ty-radio-group>
+        
+        <ty-select
+          rules="required"
+          label="select编辑态展现label"
+          clearable
+          v-model="form.selectVal"
+          :change="change"
+          :clear="clear"
+          :editable="editable"
+          :data="subjects"
+        >
+          <el-option label="None" value></el-option>
+          <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
+        </ty-select>
+
+        <ty-select
+          rules="required"
+          label="分组展现"
+          v-model="form.subjectGroupVal"
+          :change="change"
+          :editable="editable"
+          placeholder="请选择啊啊啊"
+          :data="options3"
+        >
+          <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
+            <el-option
+              v-for="item in group.options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-option-group>
+        </ty-select>
+
+        <ty-checkboxes
+          rules="required|length:2"
+          label="Drinks"
+          v-model="form.choices"
+          :change="change"
+          :editable="editable"
+        >
+          <el-checkbox label="Coffee"></el-checkbox>
+          <el-checkbox label="Tea"></el-checkbox>
+          <el-checkbox label="Soda"></el-checkbox>
+        </ty-checkboxes>
+
+        <ty-date-picker
+          v-model="form.alarmDate"
+          type="date"
+          placeholder="选择日期a"
+          label="报警日期"
+          :editable="editable"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+        ></ty-date-picker>
+
+        <ty-date-picker
+          v-model="form.alarmDateRange"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          placeholder="选择日期b"
+          label="报警区间"
+          :editable="editable"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyy-MM-dd"
+        ></ty-date-picker>
+
+        <ty-upload 
+          v-model="form.file"
+          label="上传文件："
+          action="http://39.106.229.106:8011/file/upload"
+          :limit="3"
+          :file-list="fileList"
+          :disabled="!editable"
+          name="files">
+            <el-button size="small" type="text">点击上传</el-button>
+            <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
+        </ty-upload>
+        
+      </el-form>
+    </ValidationObserver>
+    <ty-edit-button-group style="display:block;text-align:center" @save="$refs.observer.handleSubmit(onSubmit)" editable="" @change="editChange"/>
+  </div>
       
-      <ty-select
-        rules="required"
-        label="select编辑态展现label"
-        clearable
-        v-model="form.selectVal"
-        :change="change"
-        :clear="clear"
-        :editable="editable"
-        :data="subjects"
-      >
-        <el-option label="None" value></el-option>
-        <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
-      </ty-select>
-
-      <ty-select
-        rules="required"
-        label="分组展现"
-        v-model="form.subjectGroupVal"
-        :change="change"
-        :editable="editable"
-        placeholder="请选择啊啊啊"
-        :data="options3"
-      >
-        <el-option-group v-for="group in options3" :key="group.label" :label="group.label">
-          <el-option
-            v-for="item in group.options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-option-group>
-      </ty-select>
-
-      <ty-checkboxes
-        rules="required|length:2"
-        label="Drinks"
-        v-model="form.choices"
-        :change="change"
-        :editable="editable"
-        :max="2"
-      >
-        <el-checkbox v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</el-checkbox>
-      </ty-checkboxes>
-
-      <ty-date-picker
-        v-model="form.alarmDate"
-        type="date"
-        placeholder="选择日期a"
-        label="报警日期"
-        :editable="editable"
-        format="yyyy 年 MM 月 dd 日"
-        value-format="yyyy-MM-dd"
-      ></ty-date-picker>
-
-      <ty-date-picker
-        v-model="form.alarmDateRange"
-        type="daterange"
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        placeholder="选择日期b"
-        label="报警区间"
-        :editable="editable"
-        format="yyyy 年 MM 月 dd 日"
-        value-format="yyyy-MM-dd"
-      ></ty-date-picker>
-
-      <ty-upload 
-        v-model="form.file"
-        label="上传文件："
-        action="http://39.106.229.106:8011/file/upload"
-        :limit="3"
-        :file-list="fileList"
-        :disabled="!editable"
-        name="files">
-          <el-button size="small" type="text">点击上传</el-button>
-          <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
-      </ty-upload>
-      
-      <el-form-item>
-        <ty-edit-button-group @save="passes(onSubmit)" editable="" @change="editChange"/>
-      </el-form-item>
-    </el-form>
-  </ValidationObserver>
 </template>
 
 <script>
@@ -190,7 +192,6 @@ export default {
       choices: [],
       alarmDate: "2019-10-24"
     },
-    choicesList:['aa','bbb','ccc'],
     subjects: [
       {
         label: "Subject 0",
@@ -247,8 +248,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("Form submitted yay!",this.form);
-      // this.resetForm();
+      console.log("Form submitted yay!",JSON.parse(JSON.stringify(this.form)));
+      this.resetForm();
     },
     change(val) {
       console.log(val);
