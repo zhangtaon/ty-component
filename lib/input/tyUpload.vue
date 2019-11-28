@@ -31,19 +31,15 @@ export default {
     },
     success(res, file, fileList) {
       if(res.code == 0){
-        if(fileList.length==1){
-          this.$emit("input", fileList[0].response.data[0].fileName);
-        }else{
           let _fileList = fileList.map(item => {
             return {
-              fileName: item.name,
-              fileSize: item.size,
+              name: item.name,
+              size: item.size,
               uploadTime: this.dateFormat("YYYY-mm-dd HH:MM:SS", new Date()),
-              fileId: item.response.data[0].id
+              uid: item.response.data[0].id
             }
           });
           this.$emit("input", _fileList);
-        }
       }else{
         this.$notify.error({
           title: '错误',
