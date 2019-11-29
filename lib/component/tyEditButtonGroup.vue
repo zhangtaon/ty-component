@@ -1,9 +1,5 @@
 <template>
   <span v-if="!innerEditable">
-    <el-button type="primary" @click="$emit('change',innerEditable=!innerEditable)">编辑</el-button>
-    <el-button @click="back()">返回</el-button>
-  </span>
-  <span v-else>
     <el-button v-if="$listeners.journal" type="primary" @click="$emit('journal')">日志</el-button>
     <el-button v-if="$listeners.checkRecord" type="primary" @click="$emit('checkRecord')">排查记录</el-button>
     <el-button v-if="$listeners.check" type="primary" @click="$emit('check')">排查</el-button>
@@ -14,6 +10,11 @@
     <el-button v-if="$listeners.feedback" type="primary" @click="$emit('feedback')">反馈</el-button>
     <el-button v-if="$listeners.submit" type="primary" @click="$emit('submit')">提交</el-button>
     <el-button v-if="$listeners.print" type="primary" @click="$emit('print')">打印</el-button>
+
+    <el-button v-if="operate.update" type="primary" @click="$emit('change',innerEditable=!innerEditable)">编辑</el-button>
+    <el-button @click="back()">返回</el-button>
+  </span>
+  <span v-else>
     <el-button v-if="$listeners.saveDraft" type="primary" @click="$emit('saveDraft')">保存草稿</el-button>
     <el-button v-if="$listeners.save" type="primary" @click="$emit('save')">保存</el-button>
     <el-button v-if="!isAdd" @click="change()">取消</el-button>
@@ -21,7 +22,7 @@
   </span>
 </template>
 <script>
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   props: {
@@ -30,17 +31,20 @@ export default {
       default: false
     }
   },
+  created(){
+    console.log("this.operate:",this.operate);
+  },
   data() {
     return {
       innerEditable: this.editable != "add" ? false : true,
       isAdd: this.editable == "add"
     };
   },
-  // computed: {
-  //   ...mapState({
-  //     operate: state=> state.authority.operate
-  //   })
-  // },
+  computed: {
+    ...mapState({
+      operate: state=> state.authority.operate
+    })
+  },
   methods: {
     back() {
       this.$router.go(-1);
