@@ -36,7 +36,7 @@ export default {
               name: item.name,
               size: item.size,
               uploadTime: this.dateFormat("YYYY-mm-dd HH:MM:SS", new Date()),
-              uid: item.response.data[0].id
+              id: item.response.data[0].id
             }
           });
           this.$emit("input", _fileList);
