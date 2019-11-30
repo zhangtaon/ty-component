@@ -25,16 +25,6 @@
           :editable="editable"
         />
         <ty-select
-          rules="required"
-          label="Subject"
-          v-model="form.subject"
-          :change="change"
-        >
-          <el-option label="None" value></el-option>
-          <el-option label="Subject 1" value="s1"></el-option>
-          <el-option label="Subject 2" value="s2"></el-option>
-        </ty-select>
-        <ty-select
           style="margin: 0 0 20px 220px;"
           v-model="form.native"
           :change="change"
@@ -95,9 +85,7 @@
           :change="change"
           :editable="editable"
         >
-          <el-checkbox label="Coffee"></el-checkbox>
-          <el-checkbox label="Tea"></el-checkbox>
-          <el-checkbox label="Soda"></el-checkbox>
+           <el-checkbox v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</el-checkbox>
         </ty-checkboxes>
 
         <ty-date-picker
@@ -122,7 +110,6 @@
           format="yyyy 年 MM 月 dd 日"
           value-format="yyyy-MM-dd"
         ></ty-date-picker>
-
         <ty-upload 
           v-model="form.file"
           label="上传文件："
@@ -134,7 +121,6 @@
             <el-button size="small" type="text">点击上传</el-button>
             <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
         </ty-upload>
-        
       </el-form>
     </ValidationObserver>
     <ty-edit-button-group style="display:block;text-align:center" @save="$refs.observer.handleSubmit(onSubmit)" editable="" @change="editChange"/>
@@ -184,7 +170,6 @@ export default {
       email: "ztok999@163.com",
       password: "111",
       confirmation: "111",
-      subject: "1",
       radioVal: false,
       native: null,
       selectVal: "2",
@@ -264,7 +249,6 @@ export default {
       this.form.email = "";
       this.form.password = "";
       this.form.confirmation = "";
-      this.form.subject = "";
       this.form.choices = [];
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
