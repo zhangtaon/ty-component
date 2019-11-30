@@ -29,6 +29,10 @@ export default {
     editable: {
       type: [Boolean,String],
       default: false
+    },
+    backUrl: {
+      type: String,
+      default: ""
     }
   },
   created(){
@@ -47,7 +51,11 @@ export default {
   },
   methods: {
     back() {
-      this.$router.go(-1);
+      if(this.backUrl){
+        this.$router.push(this.backUrl);
+      }{
+        this.$router.go(-1);
+      }
     },
     change(){
       this.$emit('change',this.innerEditable=!this.innerEditable)
