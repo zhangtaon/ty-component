@@ -36,7 +36,7 @@
 
         <ty-radio-group
           rules="required"
-          label="radio编辑态展现label"
+          label="radio"
           v-model="form.radioVal"
           :change="change"
           :editable="editable"
@@ -47,7 +47,7 @@
         
         <ty-select
           rules="required"
-          label="select编辑态展现label"
+          label="select"
           clearable
           v-model="form.selectVal"
           :change="change"
@@ -61,7 +61,7 @@
 
         <ty-select
           rules="required"
-          label="分组展现"
+          label="select分组"
           v-model="form.subjectGroupVal"
           :change="change"
           :editable="editable"
@@ -121,6 +121,14 @@
             <el-button size="small" type="text">点击上传</el-button>
             <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
         </ty-upload>
+        <ty-cascader
+        rules="required"
+        name="select级联"
+        :options="optionsData"
+        :show-all-levels="false"
+        v-model="form.cascader"
+        :editable="editable"
+        />
       </el-form>
     </ValidationObserver>
     <ty-edit-button-group style="display:block;text-align:center" @save="$refs.observer.handleSubmit(onSubmit)" editable="" @change="editChange"/>
@@ -137,9 +145,12 @@ import TyRadio from "../../lib/input/tyRadio.vue";
 import TyDatePicker from "../../lib/input/tyDatePicker.vue";
 import TyUpload from "../../lib/input/tyUpload.vue";
 import TyEditButtonGroup from "../../lib/component/tyEditButtonGroup.vue";
+import TyCascader from "../../lib/input/tyCascader.vue";
 
 
 import { ValidationObserver } from "vee-validate";
+import { mapActions } from "vuex";
+import { city, subject, options } from "./data";
 
 export default {
   name: "RForm",
@@ -152,7 +163,8 @@ export default {
     TyRadio,
     TyDatePicker,
     TyUpload,
-    TyEditButtonGroup
+    TyEditButtonGroup,
+    TyCascader
   },
   data: () => ({
     fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
@@ -175,63 +187,19 @@ export default {
       selectVal: "2",
       subjectGroupVal: "Shenzhen",
       choices: [],
-      alarmDate: "2019-10-24"
+      alarmDate: "2019-10-24",
+      cascader: "time-picker"
     },
-    subjects: [
-      {
-        label: "Subject 0",
-        value: "0"
-      },
-      {
-        label: "Subject 1",
-        value: "1"
-      },
-      {
-        label: "Subject 2",
-        value: "2"
-      }
-    ],
-    options3: [
-      {
-        label: "热门城市",
-        options: [
-          {
-            value: "Shanghai",
-            label: "上海"
-          },
-          {
-            value: "Beijing",
-            label: "北京"
-          }
-        ]
-      },
-      {
-        label: "城市名",
-        options: [
-          {
-            value: "Chengdu",
-            label: "成都"
-          },
-          {
-            value: "Shenzhen",
-            label: "深圳"
-          },
-          {
-            value: "Guangzhou",
-            label: "广州"
-          },
-          {
-            value: "Dalian",
-            label: "大连"
-          }
-        ]
-      }
-    ],
-    editable: false
+    subjects: subject,
+    options3: city,
+    editable: false,
+    optionsData: options,
   }),
   created() {
+    this.setOperate({update:true});
   },
   methods: {
+    ...mapActions(["setOperate"]),
     onSubmit() {
       console.log("Form submitted yay!",JSON.parse(JSON.stringify(this.form)));
       this.resetForm();
