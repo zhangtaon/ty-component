@@ -62,7 +62,7 @@ export default {
       return res ? "*" : "";
     },
     labelValue(val){
-      if(!this.editable){
+        if(!this.editable){
         switch (this.value) {
           case "":
           case "undefined":
@@ -97,7 +97,22 @@ export default {
       try {
         if(this.labelKey && this.valueKey){
           if(this.tag == "el-option"){
-            return this.data.matchPropValue(this.valueKey,this.value)[this.labelKey];
+            if(Array.isArray(this.value)) {
+                let item = [],
+                _labelVal = [];
+                for(let i = 0; i < this.value.length; i++ ){
+                    item = this.data.matchPropValue(this.valueKey,this.value[i]);
+                    if(Object.prototype.toString.call(item) == "[object Object]"){
+                        _labelVal.push(item[this.labelKey]);
+                    }else{
+                        _labelVal.push(item);
+                    }
+                }
+                return _labelVal.join();
+            }else{
+                return this.data.matchPropValue(this.valueKey,this.value)[this.labelKey];
+            }
+
           }else{//el-option-group
             let item;
             for(let i = 0; i < this.data.length; i++ ){
