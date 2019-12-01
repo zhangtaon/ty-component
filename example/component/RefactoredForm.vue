@@ -54,6 +54,7 @@
           :clear="clear"
           :editable="editable"
           :data="subjects"
+          multiple
         >
           <el-option label="None" value></el-option>
           <el-option v-for="(item,index) in subjects" :key="index" :label="item.label" :value="item.value"></el-option>
@@ -184,7 +185,7 @@ export default {
       confirmation: "111",
       radioVal: false,
       native: null,
-      selectVal: "2",
+      selectVal: ["2", "1"],
       subjectGroupVal: "Shenzhen",
       choices: [],
       alarmDate: "2019-10-24",
