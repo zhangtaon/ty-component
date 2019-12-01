@@ -62,9 +62,7 @@ export default {
       return res ? "*" : "";
     },
     labelValue(val){
-        let _labelVal=[];
         if(!this.editable){
-          
         switch (this.value) {
           case "":
           case "undefined":
@@ -125,8 +123,6 @@ export default {
               }
             }
           }
-        }else{
-            
         }
       } catch (error) {
         this.$notify.error({
