@@ -33,7 +33,8 @@ export default {
     backUrl: {
       type: String,
       default: ""
-    }
+    },
+    form: Object
   },
   created(){
     console.log("this.operate:",this.operate);
@@ -58,6 +59,7 @@ export default {
       }
     },
     change(){
+      this.form.reset();
       this.$emit('change',this.innerEditable=!this.innerEditable)
     }
   }
