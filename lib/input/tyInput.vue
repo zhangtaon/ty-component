@@ -2,13 +2,17 @@
   <ValidationProvider :vid="vid" :name="$attrs.label" :rules="rules" v-slot="{ errors }">
     <!-- 隐藏label -->
     <el-form-item v-if="typeof $attrs.hideLabel == 'string'" :error="errors[0]" :label-width="$attrs['label-width']">
-      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
-      <span v-if="!editable">{{innerValue}}</span>
+      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change">
+        <span slot="suffix">{{unit}}</span>
+      </el-input>
+      <span v-if="!editable">{{innerValue}}{{unit}}</span>
     </el-form-item>
     <!-- 显示label -->
     <el-form-item v-else :error="errors[0]" :label="(isRequired ? '*' : '' ) + $attrs.label + ':'" :label-width="$attrs['label-width']">
-      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change"/>
-      <span v-if="!editable">{{innerValue}}</span>
+      <el-input v-if="editable" v-bind="$attrs" v-model="innerValue" @change="change">
+        <span slot="suffix">{{unit}}</span>
+      </el-input>
+      <span v-if="!editable">{{innerValue}}{{unit}}</span>
     </el-form-item>
   </ValidationProvider>
 </template>
@@ -34,7 +38,8 @@ export default {
     change: {
       type: Function,
       default: function() {}
-    }
+    },
+    unit: String
   },
   data: () => ({
     innerValue: "",

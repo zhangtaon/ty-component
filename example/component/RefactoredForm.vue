@@ -3,6 +3,12 @@
     <ValidationObserver ref="observer">
       <el-form ref="form" label-width="220px" class="demoForm">
         <ty-input
+          v-model="form.deposit"
+          label="存款"
+          unit="万"
+          :editable="editable"
+        />
+        <ty-input
           v-model="form.email"
           rules="required|email"
           label="Email"
@@ -132,7 +138,7 @@
         />
       </el-form>
     </ValidationObserver>
-    <ty-edit-button-group style="display:block;text-align:center" @save="$refs.observer.handleSubmit(onSubmit)" editable="" @change="editChange"/>
+    <ty-edit-button-group style="display:block;text-align:center" @save="$refs.observer.handleSubmit(onSubmit)" editable="" @change="editChange" :form="$refs.observer"/>
   </div>
       
 </template>
@@ -180,6 +186,7 @@ export default {
           }
       ],
     form: {
+      deposit: 9990000,
       email: "ztok999@163.com",
       password: "111",
       confirmation: "111",
