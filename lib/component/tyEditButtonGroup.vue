@@ -37,12 +37,13 @@ export default {
     form: Object
   },
   created(){
-    console.log("this.operate:",this.operate);
+    // console.log("this.operate:",this.operate);
+    // console.log("this.editable:",this.editable);
   },
   data() {
     return {
-      innerEditable: this.editable != "add" ? false : true,
-      isAdd: this.editable == "add"
+      innerEditable: (this.editable == "add" || this.editable == "copy") ? true : false,
+      isAdd: this.editable == "add" || this.editable == "copy"
     };
   },
   computed: {
