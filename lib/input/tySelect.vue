@@ -95,20 +95,21 @@ export default {
         this.tag = this.$slots.default[0].componentOptions.tag;
       }
       try {
-        if(this.labelKey && this.valueKey){
           if(this.tag == "el-option"){
+            // debugger
             if(Array.isArray(this.value)) {
-                let item = [],
-                _labelVal = [];
+                let _labelVal = [];
                 for(let i = 0; i < this.value.length; i++ ){
-                    item = this.data.matchPropValue(this.valueKey,this.value[i]);
-                    if(Object.prototype.toString.call(item) == "[object Object]"){
+                    if(Object.prototype.toString.call(this.value[i]) == "[object Object]"){
+                        _labelVal.push(this.value[i][this.labelKey]);
+                    }else{//string
+                        let item = this.data.matchPropValue(this.valueKey,this.value[i])
                         _labelVal.push(item[this.labelKey]);
-                    }else{
-                        _labelVal.push(item);
                     }
                 }
                 return _labelVal.join();
+            }else if(Object.prototype.toString.call(this.value) == "[object Object]"){
+                return this.value[this.labelKey];
             }else{
                 return this.data.matchPropValue(this.valueKey,this.value)[this.labelKey];
             }
@@ -123,7 +124,6 @@ export default {
               }
             }
           }
-        }
       } catch (error) {
         this.$notify.error({
             title: '错误',
