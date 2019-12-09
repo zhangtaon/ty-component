@@ -18,7 +18,9 @@
     methods: {
       formatFileList(fileList = []) {
         return fileList.map(item => {
-          if (item.response && item.response.data) {
+          if (item.id) {
+            return item;
+          } else if (item.response && item.response.data) {
             return item.response.data[0];
           }
         });
