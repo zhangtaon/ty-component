@@ -55,7 +55,7 @@ export default {
     back() {
       if(this.backUrl){
         this.$router.push(this.backUrl);
-      }{
+      }else{
         this.$router.go(-1);
       }
     },
