@@ -58,7 +58,7 @@ export default {
   watch: {
     // Handles internal model changes.
     innerValue(newVal) {
-      if(Object.prototype.toString.call(newVal) == "[object Array]" && newVal.length>1){
+      if(Object.prototype.toString.call(newVal) == "[object Array]" && newVal.length>=1){
         this.$emit("input", newVal[newVal.length-1]);
       }else{
         this.$emit("input", newVal);

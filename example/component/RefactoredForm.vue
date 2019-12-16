@@ -118,12 +118,23 @@
           value-format="yyyy-MM-dd"
         ></ty-date-picker>
         <ty-upload 
-          v-model="form.file"
+          v-model="form.file2"
           label="上传文件："
           action="http://39.106.229.106:8011/file/upload"
           :limit="3"
           :file-list="fileList"
           :disabled="!editable"
+          name="files2">
+            <el-button size="small" type="text">点击上传</el-button>
+            <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
+        </ty-upload>
+        <ty-upload 
+          v-model="form.file"
+          label="上传文件1个："
+          action="http://39.106.229.106:8011/file/upload"
+          :limit="1"
+          :disabled="!editable"
+          :file-list="form.file"
           name="files">
             <el-button size="small" type="text">点击上传</el-button>
             <span slot="tip" class="el-upload__tip">(只能上传jpg/png文件，且不超过500kb)</span>
@@ -133,6 +144,7 @@
         name="select级联"
         :options="optionsData"
         :show-all-levels="false"
+        :change-on-select="true"
         v-model="form.cascader"
         :editable="editable"
         />
@@ -196,7 +208,13 @@ export default {
       subjectGroupVal: "Shenzhen",
       choices: [],
       alarmDate: "2019-10-24",
-      cascader: "time-picker"
+      cascader: "time-picker",
+      file: [
+        {
+        name: 'food.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+      }
+      ]
     },
     subjects: subject,
     options3: city,
