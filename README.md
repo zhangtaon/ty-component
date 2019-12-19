@@ -3,7 +3,9 @@
 
 # 组件库清单
 
-复选框：tyCheckboxes
+复选框：tyCheckbox
+
+复选框组：tyCheckboxGroup
 
 级联下拉：tyCascader
 
