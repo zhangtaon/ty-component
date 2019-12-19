@@ -85,15 +85,15 @@
           </el-option-group>
         </ty-select>
 
-        <ty-checkboxes
+        <ty-checkbox-group
           rules="required|length:2"
           label="Drinks"
           v-model="form.choices"
           :change="change"
           :editable="editable"
         >
-           <el-checkbox v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</el-checkbox>
-        </ty-checkboxes>
+           <ty-checkbox v-for="(item,index) in subjects" :key="index" :label="item">{{item.label}}</ty-checkbox>
+        </ty-checkbox-group>
 
         <ty-date-picker
           v-model="form.alarmDate"
@@ -156,7 +156,8 @@
 </template>
 
 <script>
-import TyCheckboxes from "../../lib/input/tyCheckboxes.vue";
+import TyCheckbox from "../../lib/input/tyCheckbox.vue";
+import TyCheckboxGroup from "../../lib/input/tyCheckboxGroup.vue";
 import TyInput from "../../lib/input/tyInput.vue";
 import TySelect from "../../lib/input/tySelect.vue";
 import TyRadioGroup from "../../lib/input/tyRadioGroup.vue";
@@ -177,7 +178,8 @@ export default {
     ValidationObserver,
     TyInput,
     TySelect,
-    TyCheckboxes,
+    TyCheckbox,
+    TyCheckboxGroup,
     TyRadioGroup,
     TyRadio,
     TyDatePicker,
@@ -206,7 +208,16 @@ export default {
       native: null,
       selectVal: ["2", "1"],
       subjectGroupVal: "Shenzhen",
-      choices: [],
+      choices: [
+        {
+          label: "Subject 0",
+          value: "0"
+        },
+        {
+    label: "Subject 1",
+    value: "1"
+  }
+      ],
       alarmDate: "2019-10-24",
       cascader: "time-picker",
       file: [
