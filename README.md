@@ -5,6 +5,8 @@
 
 复选框：tyCheckboxes
 
+级联下拉：tyCascader
+
 日期控件：tyDatePicker
 
 输入框：tyInput
@@ -14,6 +16,8 @@
 单选框组：tyRadioGroup
 
 下拉框：tySelect
+
+上传组件：tyUpload
 
 # 组件功能
 
@@ -38,6 +42,4 @@ length
 # 案例
 
 RefactoredForm：组件案例集锦
-
-Breadcrumb：样式组件案例
 
